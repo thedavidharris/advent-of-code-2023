@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 
 from aocd import get_data
-import re
-from math import pow
-from collections import defaultdict
 
 data = get_data(day=4, year=2023).splitlines()
 # data = open('test.txt').read().splitlines()
 
-total = 0
-cards = defaultdict(int)
+t=0
+c=[1]*len(data)
 for i, line in enumerate(data):
-    cards[i] += 1
     winning, has = map(set, (map(str.split, line.split('|'))))
     count = len(winning & has)
     if count > 0:
-        total += 2**(count-1)
+        t += 2**(count-1)
     for j in range(count):
-        cards[i + j + 1] += cards[i]
+        c[i + j + 1] += c[i]
 
-print(f'Part1: {total}')
+print(f'Part 1: {t}')
 
-print(f'Part 2: {sum(cards.values())}')
+print(f'Part 2: {sum(c)}')
